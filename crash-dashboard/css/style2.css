@@ -1,0 +1,68 @@
+@import url("style.css");
+
+:root {
+  --bg: #f8fafc;
+  --bg-2: #eef2f6;
+  --panel: #ffffff;
+  --panel-hi: #f1f5f9;
+  --line: #cbd5e1;
+  --crimson: #0072b2;
+  --glow: #005a8d;
+  --text: #1e293b;
+  --muted: #475569;
+  --good: #0072b2;
+  --positive: #0072b2;
+  --negative: #005a8d;
+  --radius: 10px;
+  --c1: #0072b2;
+  --c2: #4c78a8;
+  --c3: #00805a;
+  --c4: #9b4f96;
+  --c5: #007fa8;
+  --c6: #355f8a;
+}
+
+body, button, select {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, .brand, .kpi strong, .btn, .vs, .h2h-names, .totop {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.hero h1 span {
+  background: none;
+  color: var(--muted);
+  animation: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+.seg button, th button, .donut-big {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topbar { background: rgba(248, 250, 252, .94); }
+.topbar nav a.active { box-shadow: none; }
+.btn:hover, .card:hover, .kpi:hover, .totop:hover { box-shadow: none; }
+.kpi strong { text-shadow: none; }
+.donut-big { fill: var(--text); }
+.bars .win i,
+.bars .l.win i {
+  background: var(--crimson);
+  box-shadow: none;
+}
+.slides { box-shadow: 0 4px 18px rgba(15, 23, 42, .12); }
+.slides::after { background: linear-gradient(180deg, transparent 55%, rgba(15, 23, 42, .72)); }
+.net .lines polyline { stroke: rgba(0, 75, 120, .25); }
+.net .nodes circle { filter: drop-shadow(0 0 4px var(--crimson)); }
+.grid line { stroke: rgba(15, 23, 42, .12); }
+.tip { color: var(--text); background: #fff; box-shadow: 0 4px 14px rgba(15, 23, 42, .14); }
+#progress { background: linear-gradient(90deg, var(--crimson), var(--glow)); }
+.cursor-glow { background: radial-gradient(circle, rgba(0, 114, 178, .10), transparent 65%); }
+.band { background-color: #334155; }
+.band::before { background: radial-gradient(ellipse at center, rgba(15, 23, 42, .58), rgba(15, 23, 42, .92)); }
+.band-in strong { text-shadow: none; }
+.band-in p { color: #fff; }
+.sec-head .num { box-shadow: none; }
+.panel::before { background: linear-gradient(90deg, transparent, var(--crimson), transparent); }
+.guide { stroke: rgba(15, 23, 42, .42); }
