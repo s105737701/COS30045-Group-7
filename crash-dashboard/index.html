@@ -1,172 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- GenAI declaration: this dashboard was built with the assistance of Claude (Anthropic) in conversation with the team.
+       The team reviewed, tested and adapted the code. Edit this note to match the unit's GenAI declaration rules. -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hospitalised Road Crash Injuries in Australia (2011–2021)</title>
-  <link rel="stylesheet" href="css/style2.css">
+  <title>Overview | Hospitalised Road Crash Injuries in Australia (2011–2021)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <div id="progress" aria-hidden="true"></div>
-  <header class="topbar">
-    <a class="brand" href="#top">Crash Injuries AU</a>
-    <nav aria-label="Sections">
-      <a href="#top" class="active">Home</a><a href="#trends">Trends</a><a href="#road-users">Road users</a>
-      <a href="#compare">Compare</a><a href="#insights">Insights</a><a href="#data">Data</a><a href="#about">About</a>
+<body class="has-dbar">
+  <header class="dh">
+    <div class="dh-bg" aria-hidden="true">
+      <img class="on" src="photos/car%20crash%201.jpeg" alt="">
+      <img src="photos/car%20crash%202.jpeg" alt="">
+      <img src="photos/car%20crash%203.jpeg" alt="">
+    </div>
+    <div class="dh-title">
+      <p class="kicker">COS30045 Data Visualisation, Group 7</p>
+      <h1>Hospitalised Road Crash Injuries in Australia <span>(2011–2021)</span></h1>
+    </div>
+    <div class="dh-kpis" id="kpis" aria-label="Key numbers"></div>
+    <nav class="nav" aria-label="Pages">
+      <a href="index.html" aria-current="page">Overview</a>
+      <a href="trends.html">Year by year</a>
+      <a href="compare.html">Compare</a>
+      <a href="data.html">Data</a>
+      <a href="about.html">About</a>
     </nav>
   </header>
 
-  <main id="top">
-    <section class="hero" data-section>
-      <canvas id="net" aria-hidden="true"></canvas>
-      <div class="hero-text">
-        <p class="kicker">COS30045 Data Visualisation, Group 7</p>
-        <h1>Hospitalised Road Crash Injuries in Australia <span>(2011–2021)</span></h1>
-        <p class="lead">Explore how hospitalised road crash injuries have changed over a decade, and which road users are hit hardest.</p>
-        <div class="cta"><a class="btn" href="#trends">Explore the data</a><a class="btn ghost" href="#compare">Compare road users</a></div>
+  <main class="dash">
+    <!-- Story step 1: how much, and how has it changed? -->
+    <article class="panel p-trend">
+      <div class="ph"><div class="q"><span class="num">1</span><div><h3>How has it changed?</h3><p class="sub" id="line-sub"></p></div></div></div>
+      <div class="controls">
+        <div class="seg" id="line-metric" role="group" aria-label="Measure"><button type="button" class="on" data-m="cases" aria-pressed="true">Cases</button><button type="button" data-m="beds" aria-pressed="false">Bed days</button><button type="button" data-m="cmp" aria-pressed="false">Compare</button></div>
+        <select id="yr-from" aria-label="From year"></select>
+        <select id="yr-to" aria-label="To year"></select>
+        <button type="button" id="yr-play" class="btn">Play</button>
       </div>
-      <div class="slides" aria-label="Photos of road crash scenes">
-        <img class="on" src="photos/car%20crash%201.jpeg" alt="Two damaged cars and scattered debris on a city road">
-        <img src="photos/car%20crash%202.jpeg" alt="A wrecked red car off the side of a road, with emergency vehicles behind">
-        <img src="photos/car%20crash%203.jpeg" alt="A damaged red car and an SUV beside a suburban road">
-        <div class="dots" role="tablist" aria-label="Choose photo"></div>
-      </div>
-      <a class="scroll-cue" href="#kpis" aria-label="Scroll down">Scroll</a>
-    </section>
+      <div class="chart" id="line-chart"></div>
+      <p class="take" id="line-take"></p>
+    </article>
 
-    <section class="kpis" id="kpis" aria-label="Key numbers"></section>
+    <!-- Story step 2: who is affected most often? -->
+    <article class="panel p-bars">
+      <div class="ph"><div class="q"><span class="num">2</span><div><h3>Who is hit hardest?</h3><p class="sub" id="bar-sub"></p></div></div></div>
+      <div class="controls">
+        <div class="seg" id="bar-metric" role="group" aria-label="Measure"><button type="button" class="on" data-m="cases" aria-pressed="true">Cases</button><button type="button" data-m="beds" aria-pressed="false">Bed days</button><button type="button" data-m="avg" aria-pressed="false">Per case</button></div>
+        <button type="button" id="clear-pick" class="btn ghost">Clear</button>
+      </div>
+      <div class="chart" id="bar-chart"></div>
+      <p class="take" id="bar-take"></p>
+    </article>
+
+    <!-- Story step 3: who is hurt most seriously? -->
+    <article class="panel p-bubble">
+      <div class="ph"><div class="q"><span class="num">3</span><div><h3>Who is hurt most seriously?</h3><p class="sub">Right = more cases. Up = longer stays. Bigger = more bed days.</p></div></div></div>
+      <div class="chart" id="bubble-chart"></div>
+      <p class="take" id="bubble-take"></p>
+    </article>
   </main>
 
-  <section class="band" style="background-image:url('photos/car%20crash%202.jpeg')" aria-label="Highlight">
-    <div class="band-in reveal"><strong id="band1"></strong><p id="band1t"></p></div>
-  </section>
+  <section class="dbar" id="dbar" aria-live="polite" aria-label="Selected road user"></section>
 
-  <main class="rest">
-    <section id="trends" class="block" data-section>
-      <div class="sec-head reveal"><span class="num">01</span><h2>Trends over time</h2><p>How hospitalised cases and bed days moved from 2011 to 2021.</p></div>
-      <article class="panel reveal">
-        <div class="controls">
-          <div class="seg" id="line-metric" role="group" aria-label="Measure">
-            <button type="button" class="on" data-m="cases">Cases</button>
-            <button type="button" data-m="beds">Bed days</button>
-            <button type="button" data-m="avg">Stay per case</button>
-            <button type="button" data-m="cmp">Compare (index)</button>
-          </div>
-          <label>From <select id="yr-from"></select></label>
-          <label>To <select id="yr-to"></select></label>
-          <button type="button" id="yr-play" class="btn">Play</button>
-          <button type="button" id="yr-reset" class="btn ghost">Reset</button>
-        </div>
-        <h3 id="line-title"></h3>
-        <p class="sub" id="line-sub"></p>
-        <div class="chart" id="line-chart"></div>
-        <p class="note" id="line-note"></p>
-      </article>
-      <article class="panel reveal gap-t">
-        <h3>Year-on-year change in cases</h3>
-        <p class="sub">Light blue bars show years where cases went up; dark blue bars show years where cases went down. Values include a sign to show the direction.</p>
-        <div class="chart" id="yoy-chart"></div>
-      </article>
-    </section>
-
-    <section id="road-users" class="block" data-section>
-      <div class="sec-head reveal"><span class="num">02</span><h2>Road users</h2><p>Who is hospitalised, and how long they stay. All charts here are linked: pick one road user and they all highlight it.</p></div>
-      <article class="panel reveal">
-        <div class="controls">
-          <div class="seg" id="bar-metric" role="group" aria-label="Measure">
-            <button type="button" class="on" data-m="cases">Cases</button>
-            <button type="button" data-m="beds">Bed days</button>
-            <button type="button" data-m="avg">Bed days per case</button>
-          </div>
-          <button type="button" id="clear-pick" class="btn ghost">Clear selection</button>
-        </div>
-        <h3 id="bar-title"></h3>
-        <p class="sub">Click a bar to see its details. Longer stays per case suggest more serious injuries.</p>
-        <div class="split">
-          <div class="chart" id="bar-chart"></div>
-          <aside class="detail" id="bar-detail" aria-live="polite"></aside>
-        </div>
-      </article>
-      <div class="grid two gap-t">
-        <article class="panel reveal">
-          <h3>Volume against severity</h3>
-          <p class="sub">Further right means more cases. Higher up means longer stays. Bigger bubbles mean more bed days in total.</p>
-          <div class="chart" id="bubble-chart"></div>
-        </article>
-        <article class="panel reveal">
-          <h3>Share of all cases</h3>
-          <p class="sub">The five biggest road user groups. Click a slice to select it.</p>
-          <div class="chart" id="donut-chart"></div>
-        </article>
-      </div>
-    </section>
-
-    <section id="compare" class="block" data-section>
-      <div class="sec-head reveal"><span class="num">03</span><h2>Head to head</h2><p>Pick any two road users and see how they stack up.</p></div>
-      <article class="panel reveal">
-        <div class="controls h2h-pick">
-          <label>Road user A <select id="h-a"></select></label>
-          <span class="vs">VS</span>
-          <label>Road user B <select id="h-b"></select></label>
-        </div>
-        <div id="h2h-rows"></div>
-        <p class="note" id="h2h-note"></p>
-      </article>
-    </section>
-  </main>
-
-  <section class="band" style="background-image:url('photos/car%20crash%203.jpeg')" aria-label="Highlight">
-    <div class="band-in reveal"><strong id="band2"></strong><p id="band2t"></p></div>
-  </section>
-
-  <main class="rest">
-    <section id="insights" class="block" data-section>
-      <div class="sec-head reveal"><span class="num">04</span><h2>What the data tells us</h2><p>Four findings worked out from the numbers. Tap a card to jump to its chart.</p></div>
-      <div class="cards" id="insight-cards"></div>
-    </section>
-
-    <section id="data" class="block" data-section>
-      <div class="sec-head reveal"><span class="num">05</span><h2>The data</h2><p>Click a column heading to sort. Click a row to select that road user in the charts above.</p></div>
-      <article class="panel reveal">
-        <div class="tbl"><table id="tbl"><thead></thead><tbody></tbody></table></div>
-        <p class="note"><a class="dl" href="data/Road_User_Statistics.csv" download>Download road user data (CSV)</a> <a class="dl" href="data/Yearly_Statistics.csv" download>Download yearly data (CSV)</a></p>
-      </article>
-    </section>
-
-    <section id="about" class="block" data-section>
-      <div class="sec-head reveal"><span class="num">06</span><h2>About this project</h2></div>
-      <div class="grid two">
-        <article class="panel reveal">
-          <h3>Data source</h3>
-          <p class="sub">BITRE Hospitalised Injury Data, from the AIHW National Hospital Morbidity Database (ICD-10-AM coding). Coverage: 2011–2021, cleaned in KNIME.</p>
-          <h3 class="gap">Data notes</h3>
-          <ul class="list">
-            <li>Series breaks: Victoria (2012) and NSW (2017) show shifts.</li>
-            <li>Suppressed cells: small counts marked "n.p." are preserved.</li>
-            <li>Missing fields: "Died in care" is omitted for 2020–2021.</li>
-            <li>Data lag: the most recent national release is 2021.</li>
-          </ul>
-        </article>
-        <article class="panel reveal">
-          <h3>Team</h3>
-          <ul class="list">
-            <li>Muhamad Danish Affandi, 105737701</li>
-            <li>Syed Adam Hamzah, 105249002</li>
-            <li>Natthania Noah Immanual Jason, 105689802</li>
-          </ul>
-          <h3 class="gap">Built with</h3>
-          <p class="sub">KNIME for data cleaning, D3.js for the charts, and HTML, CSS and JavaScript for the website.</p>
-        </article>
-      </div>
-    </section>
-  </main>
-
-  <footer><p>COS30045 Data Visualisation, Group 7.</p></footer>
-  <a class="totop" href="#top" aria-label="Back to top">Top</a>
   <div class="tip" id="tip" role="status" hidden></div>
   <script src="js/effects.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
   <script src="js/charts.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/overview.js"></script>
 </body>
 </html>
