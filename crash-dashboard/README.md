@@ -1,6 +1,6 @@
 # Hospitalised Road Crash Injuries in Australia (2011–2021)
 
-COS30045 Data Visualisation, Group 7.
+COS30045 Data Visualisation, Group 7..
 
 A dashboard of five pages. Every page fits on one screen, with no scrolling.
 
