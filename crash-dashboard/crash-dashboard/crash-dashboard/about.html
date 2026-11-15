@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- GenAI declaration: this dashboard was built with the assistance of Claude (Anthropic) in conversation with the team.
+       The team reviewed, tested and adapted the code. Edit this note to match the unit's GenAI declaration rules. -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About | Hospitalised Road Crash Injuries in Australia (2011–2021)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="dh">
+    <div class="dh-bg" aria-hidden="true">
+      <img class="on" src="photos/car%20crash%201.jpeg" alt="">
+      <img src="photos/car%20crash%202.jpeg" alt="">
+      <img src="photos/car%20crash%203.jpeg" alt="">
+    </div>
+    <div class="dh-title">
+      <p class="kicker">COS30045 Data Visualisation, Group 7</p>
+      <h1>Hospitalised Road Crash Injuries in Australia <span>(2011–2021)</span></h1>
+    </div>
+    <nav class="nav" aria-label="Pages">
+      <a href="index.html">Overview</a>
+      <a href="trends.html">Year by year</a>
+      <a href="compare.html">Compare</a>
+      <a href="data.html">Data</a>
+      <a href="about.html" aria-current="page">About</a>
+    </nav>
+  </header>
+
+  <main class="dash">
+    <article class="panel scroll">
+      <h3>The project</h3>
+      <p class="sub">Who is hospitalised after road crashes in Australia, how has that changed from 2011 to 2021, and who is hurt most seriously? Built for the general public and road safety policymakers.</p>
+      <h3 class="block-h">Team</h3>
+      <ul class="list">
+        <li>Muhamad Danish Affandi, 105737701</li>
+        <li>Syed Adam Hamzah, 105249002</li>
+        <li>Natthania Noah Immanual Jason, 105689802</li>
+      </ul>
+      <h3 class="block-h">Built with</h3>
+      <p class="sub">KNIME for cleaning the data, D3.js for the charts, and HTML, CSS and JavaScript for the website. The code was written with the assistance of Claude (Anthropic) and reviewed and adapted by the team.</p>
+    </article>
+    <article class="panel scroll">
+      <h3>Colour choices</h3>
+      <ul class="list facts">
+        <li><b>Dark burgundy as a neutral data backdrop:</b> #160C12 and #25151D frame the data without encoding injury severity. Rose (#F28AA5) is reserved for decorative accents and focus cues.</li>
+        <li><b>One distinguishable hue per measure:</b> Okabe–Ito sky blue (#56B4E9) = hospitalisation cases; orange (#E69F00) = total bed days; bluish green (#009E73) = bed days per case. Colours encode measure identity, not risk or severity.</li>
+        <li><b>Measured contrast:</b> relative to the #25151D panel, blue = 7.56:1, orange = 7.75:1, green = 5.10:1, main text = 15.65:1, and secondary text = 9.77:1 (WCAG relative-luminance formula). These opaque combinations exceed 4.5:1 for normal text and 3:1 for meaningful graphic marks, but do not prove that all controls and interactions pass an accessibility audit.</li>
+        <li><b>Data-type-appropriate palettes:</b> the donut uses qualitative hues for five nominal road-user categories and neutral grey for the grouped remainder, rather than a misleading light-to-dark ranking gradient.</li>
+        <li><b>Redundant encoding:</b> rises and falls have a zero baseline and signed percentages; the comparative line chart uses a solid cases line and dashed bed-days line. Labels, tooltips and legends reinforce colour.</li>
+        <li><b>Design basis:</b> Okabe &amp; Ito, Color Universal Design (https://jfly.uni-koeln.de/color/); ColorBrewer 2.0 (https://colorbrewer2.org/); W3C WCAG 2.2 (https://www.w3.org/TR/WCAG22/). See the Design Book for complete APA 7 citations.</li>
+      </ul>
+      <h3 class="block-h">Font choices</h3>
+      <ul class="list facts">
+        <li><b>Chakra Petch</b> for headings and big numbers: squared, technical letters fit the futuristic brief and stay legible when large.</li>
+        <li><b>IBM Plex Sans</b> for everything else: designed for small sizes, with clearly different numerals, which matters in number-heavy charts.</li>
+      </ul>
+    </article>
+    <article class="panel scroll">
+      <h3>Layout and chart choices</h3>
+      <ul class="list facts">
+        <li><b>One screen per page:</b> a dashboard should be seen at a glance, so detail lives on separate pages.</li>
+        <li><b>Left to right is the story:</b> how has it changed, who is hit hardest, who is hurt most seriously.</li>
+        <li><b>Line</b> for change over time. <b>Bars</b> for ranking categories. <b>Bubbles</b> for three variables at once. <b>Mirrored bars</b> for comparing two groups. <b>Donut</b> for share of the total.</li>
+        <li><b>Linked charts:</b> choosing a road user highlights it everywhere, so the same group can be seen from several angles.</li>
+        <li><b>Honest axes:</b> bar charts start at zero. The line charts do not, and say so on screen.</li>
+      </ul>
+    </article>
+  </main>
+
+  <script src="js/effects.js"></script>
+</body>
+</html>
